@@ -148,6 +148,7 @@ target_include_directories(tinycbor
 
 install(FILES
   ${PROJECT_SOURCE_DIR}/src/cbor.h
+  ${PROJECT_SOURCE_DIR}/src/cborjson.h
   ${PROJECT_BINARY_DIR}/tinycbor-version.h
   ${PROJECT_BINARY_DIR}/tinycbor-export.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/tinycbor
@@ -160,6 +161,18 @@ install(
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}   # .dll files are binaries
   INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}  # this does not actually install anything (but used by downstream projects)
 )
+
+# Define variables required by tinycbor.pc.in
+set(prefix      ${CMAKE_INSTALL_PREFIX})
+set(exec_prefix ${CMAKE_INSTALL_PREFIX})
+set(libdir      ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
+set(includedir  ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_INCLUDEDIR})
+set(version     0.${PROJECT_VERSION})
+
+configure_file(tinycbor.pc.in tinycbor.pc @ONLY)
+
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/tinycbor.pc
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 
 set(PROJECT_LIBRARIES TinyCBOR)
 include(PackageConfig)
