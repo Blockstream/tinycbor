@@ -41,7 +41,7 @@ endif()
 # Include additional modules that are used unconditionally
 include(GNUInstallDirs)
 include(GenerateExportHeader)
-include(CheckLinkerFlag)
+# include(CheckLinkerFlag)
 include(CheckSymbolExists)
 
 add_library(tinycbor
